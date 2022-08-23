@@ -18,3 +18,6 @@ javac -verbose -sourcepath ./src ./src/App.java # 输出有关编译器正在执
 java App                            # 执行
 ```
 
+## 引用
+
+[https://github.com/WilsonPan/java-developer](https://github.com/WilsonPan/java-developer)

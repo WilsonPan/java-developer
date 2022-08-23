@@ -5,6 +5,7 @@
   - [Maven 常用参数](#maven-常用参数)
   - [常用maven命令](#常用maven命令)
   - [web项目相关命令](#web项目相关命令)
+  - [引用](#引用)
 
 ## mvn archetype
 
@@ -79,3 +80,7 @@ mvn tomcat:stop                                 # 停止web应用
 mvn tomcat:redeploy                             # 重新部署
 mvn war:exploded tomcat:exploded                # 部署展开的war文件
 ```
+
+## 引用
+
+[https://github.com/WilsonPan/java-developer](https://github.com/WilsonPan/java-developer)
