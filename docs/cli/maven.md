@@ -66,6 +66,9 @@ mvn deploy                                      # 发布项目到远程仓库
 mvn validate                                    # 验证项目是否正确
 mvn dependency:tree                             # 显示maven依赖树
 mvn dependency:list                             # 显示maven依赖列表
+mvn dependency:list                             # 显示maven依赖列表
+mvn dependency:analyze                          # 分析当前项目的依赖
+mvn dependency:sources                          # 下载源码
 ```
 
 ## web项目相关命令
