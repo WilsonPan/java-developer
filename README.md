@@ -8,3 +8,9 @@
 
 1. [Javac](/docs/cli/javac.md)
 2. [Maven](/docs/cli/maven.md)
+
+## 快捷键
+
+1. chrome
+2. vscode
+3. idea

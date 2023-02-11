@@ -1,6 +1,7 @@
-# Java CLI
+# CLI
 
-## [基础](./%E5%9F%BA%E7%A1%80.md)
-> 数据类型、访问修饰符、关键字、面向对象、类与接口、内部类
+## [Javac](./javac.md)
 
-## [进阶](./%E8%BF%9B%E9%98%B6.md)
+## [Maven](./maven.md)
+
+## [Redis](./redis.md)
