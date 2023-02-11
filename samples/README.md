@@ -16,7 +16,8 @@
 3. [Gradle](/docs/cli/gradle.md)
 4. [Redis](docs/cli/redis.md)
 
-## [Samples](/samples/)
+## [Samples](/samples/README.md)
+
 
 ## [常用工具](/docs/tools/README.md)
 
