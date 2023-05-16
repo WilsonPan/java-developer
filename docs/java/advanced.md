@@ -6,6 +6,7 @@
     - [什么是反射机制？](#什么是反射机制)
     - [反射机制优缺点](#反射机制优缺点)
     - [Java获取反射的三种方法](#java获取反射的三种方法)
+    - [调用方法](#调用方法)
 
 ## 反射
 
@@ -28,10 +29,27 @@ JAVA反射机制是在运行状态中，对于任意一个类，都能够知道�
 1. 通过建立对象
 
 ```java
-
+Class cls = new Runner().getClass();
 ```
 
-2. 所在通过路径-相对路径
+2. 通过类名
 
 ```java
+Class cls = Runner.class;
+```
+
+3. 通过Class.forName
+
+```java
+Class cls = Class.forName("com.app.demo.Runner");
+```
+
+### 调用方法
+
+```java
+// 1. 获取Method
+Method method = cls.getDeclaredMethod("getName");
+
+// 2. 调用
+Object result = method.invoke(cls.newInstance());
 ```
