@@ -9,6 +9,10 @@
 1. [Java基础](/docs/java/base.md)
 2. [数组与切片](/docs/java/advanced.md)
 
+## [常用组件](/docs/components/README.md)
+
+1. [ZooKeeper](/docs/components/zookeeper.md)
+
 ## [CLI](/docs/cli/README.md)
 
 1. [Javac](/docs/cli/javac.md)
