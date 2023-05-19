@@ -44,4 +44,5 @@ docker run -it --rm --link zookeeper:zookeeper zookeeper zkCli.sh -server zookee
 docker exec -it zookeeper bash          ## 只登录容器，不登录zkCli
 
 ./bin/zkCli.sh                          ## 进入到 zkCli
-```进入到 zkCli
+```
+
