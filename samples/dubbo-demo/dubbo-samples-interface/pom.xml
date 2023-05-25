@@ -9,6 +9,6 @@
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 	<groupId>com.example.samples.dubbo</groupId>
-	<artifactId>dubbo-interface</artifactId>
+	<artifactId>dubbo-samples-interface</artifactId>
 	<version>1.0-SNAPSHOT</version>
 </project>
