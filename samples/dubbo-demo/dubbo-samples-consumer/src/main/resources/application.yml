@@ -1,8 +1,10 @@
 dubbo:
   application:
     name: dubbo-springboot-demo-consumer
+    qos-port: 22201
+    qos-enable: true
   protocol:
     name: dubbo
-    port: -1
   registry:
     address: zookeeper://${zookeeper.address:127.0.0.1}:2181
+    protocol: zookeeper

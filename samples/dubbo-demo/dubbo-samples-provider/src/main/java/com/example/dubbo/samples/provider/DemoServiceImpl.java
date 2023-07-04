@@ -9,7 +9,7 @@ public class DemoServiceImpl implements DemoService {
 
     @Override
     public String getName() {
-        return "Wilson Pan";
+        return "DemoServiceImpl";
     }
 
 }
