@@ -18,9 +18,9 @@ mkdir /Users/wilson/wilson.pan/volumes/zookeeper/logs
 cd /Users/wilson/wilson.pan/volumes/zookeeper
 
 docker run -d --name zookeeper \
--v $PWD/data:/data  \
--v $PWD/conf:/conf  \
--v $PWD/logs:/logs  \
+-v $PWD/zookeeper/data:/data  \
+-v $PWD/zookeeper/conf:/conf  \
+-v $PWD/zookeeper/logs:/logs  \
 -p 2181:2181        \
 -e TZ="Asia/Shanghai" \
 zookeeper
