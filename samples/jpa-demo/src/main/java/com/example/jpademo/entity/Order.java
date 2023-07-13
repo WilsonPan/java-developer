@@ -4,20 +4,24 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "order")
+@Table(name = "`order`")
 public class Order {
     
+    @Id
     private String id;
     
     private String requestId;
 
     private BigDecimal amount;
 
-    private Date createDate;
+    private String status;
 
+    private Date createTime;
+    
     public String getId() {
         return id;
     }
@@ -42,13 +46,19 @@ public class Order {
         this.amount = amount;
     }
 
-    public Date getCreateDate() {
-        return createDate;
+    public String getStatus() {
+        return status;
     }
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 }
