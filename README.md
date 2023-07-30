@@ -21,6 +21,9 @@
 4. [Redis](docs/cli/redis.md)
 
 ## [Samples](/samples/)
+1. [Dubbo](/samples/dubbo-demo/README.md)
+2. [JPA](/samples/jpa-demo/README.md)
+3. [Aspect](/samples/aop-demo/README.md)
 
 ## [常用工具](/docs/tools/README.md)
 
