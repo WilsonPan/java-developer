@@ -49,3 +49,13 @@ public class CacheResultAspect {
 
 }
 ```
+
+4. 使用
+
+```java
+@CacheResult
+public String getById(String id) {
+    return "Wilson Pan" + id;
+}
+```
+

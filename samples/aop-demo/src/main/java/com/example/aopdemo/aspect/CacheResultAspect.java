@@ -16,21 +16,21 @@ public class CacheResultAspect {
     @Around(value = "@annotation(cacheResult)")
     private Object around(ProceedingJoinPoint joinPoint, CacheResult cacheResult) throws Throwable {
         Object[] args = joinPoint.getArgs();
-        
+
         String key = buildKey(args);
 
-        if(cache.containsKey(key)){
+        if (cache.containsKey(key)) {
             return cache.get(key);
         }
-        Object result =  joinPoint.proceed();
+        Object result = joinPoint.proceed();
 
         cache.put(key, result);
 
         return result;
     }
 
-    private String buildKey(Object[] args){
+    private String buildKey(Object[] args) {
         return String.format("cache_%s", args[0].toString());
-    } 
+    }
 
 }
