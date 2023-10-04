@@ -12,6 +12,7 @@
 ## [常用组件](/docs/components/README.md)
 
 1. [ZooKeeper](/docs/components/zookeeper.md)
+2. [RocketMQ](/docs/components/rocketmq.md)
 
 ## [CLI](/docs/cli/README.md)
 
@@ -24,6 +25,7 @@
 1. [Dubbo](/samples/dubbo-demo/README.md)
 2. [JPA](/samples/jpa-demo/README.md)
 3. [Aspect](/samples/aop-demo/README.md)
+4. [RocketMQ](/samples/mq-demo/README.md)
 
 ## [常用工具](/docs/tools/README.md)
 

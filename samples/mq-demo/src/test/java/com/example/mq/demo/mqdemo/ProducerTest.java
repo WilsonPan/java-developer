@@ -16,7 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class ProducerTest {
 
     @Test
-    public void testSend() throws ClientException, IOException {
+    void testSend() throws ClientException, IOException {
         String endpoint = "localhost:8081";
         String topic = "TestTopic";
         ClientServiceProvider provider = ClientServiceProvider.loadService();
@@ -34,7 +34,7 @@ public class ProducerTest {
                 // 设置消息Tag，用于消费端根据指定Tag过滤消息。
                 .setTag("messageTag")
                 // 消息体。
-                .setBody("Lillte".getBytes())
+                .setBody(("Wilson" + System.currentTimeMillis()).getBytes())
                 .build();
         try {
             // 发送消息，需要关注发送结果，并捕获失败等异常。
