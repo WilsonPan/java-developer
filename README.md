@@ -27,6 +27,10 @@
 3. [Aspect](/samples/aop-demo/README.md)
 4. [RocketMQ](/samples/mq-demo/README.md)
 
+## [算法题](/docs/leetcode/README.md)
+
+1. [121. 买卖股票的最佳时机](/docs/leetcode/121.md)
+
 ## [常用工具](/docs/tools/README.md)
 
 1. [Chrome常用快捷键](/docs/tools/chrome.md)
