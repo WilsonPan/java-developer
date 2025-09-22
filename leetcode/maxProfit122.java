@@ -2,11 +2,7 @@ package leetcode;
 
 public class maxProfit122 {
 
-    /**
-     * @param prices
-     * @return
-     */
-    public int maxProfit(int[] prices) {
+    public int maxProfit2(int[] prices) {
         if (prices == null || prices.length <= 1)
             return 0;
 
@@ -22,11 +18,19 @@ public class maxProfit122 {
                 maxProfit += (prices[i] - minPrice);
                 minPrice = prices[i + 1];
             }
-
-            System.out.println(
-                    String.join(",", String.valueOf(prices[i]), String.valueOf(minPrice), String.valueOf(maxProfit)));
         }
         return maxProfit;
+    }
+
+    public int maxProfit(int[] prices) {
+        if (prices == null || prices.length <= 1)
+            return 0;
+
+        int maxProfit = 0;
+        for (int i = 1; i < prices.length; i++) {
+            maxProfit += Math.max(0, prices[i] - prices[i - 1]);
+        }
+
     }
 
     public static void main(String[] args) {
