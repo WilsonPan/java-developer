@@ -34,6 +34,13 @@
 ## [算法题](/docs/leetcode/README.md)
 
 1. [121. 买卖股票的最佳时机](/docs/leetcode/121.md)
+2. [122. 买卖股票的最佳时机 II](/docs/leetcode/122.md)
+3. [55. 跳跃游戏](/docs/leetcode/55.md)
+4. [45. 跳跃游戏 II](/docs/leetcode/45.md)
+
+## [CICD](/docs/cicd/README.md)
+
+1. [macOS上优雅运行Docker容器](/docs/cicd/README.md)
 
 ## [常用工具](/docs/tools/README.md)
 
