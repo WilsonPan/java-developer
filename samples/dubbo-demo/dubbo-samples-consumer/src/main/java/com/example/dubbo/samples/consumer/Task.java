@@ -1,7 +1,5 @@
 package com.example.dubbo.samples.consumer;
 
-import java.util.Date;
-
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

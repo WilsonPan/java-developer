@@ -37,6 +37,7 @@
 2. [122. 买卖股票的最佳时机 II](/docs/leetcode/122.md)
 3. [55. 跳跃游戏](/docs/leetcode/55.md)
 4. [45. 跳跃游戏 II](/docs/leetcode/45.md)
+5. [274. H 指数](./docs//leetcode/274.md)
 
 ## [CICD](/docs/cicd/README.md)
 

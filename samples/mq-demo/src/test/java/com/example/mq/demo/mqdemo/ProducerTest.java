@@ -39,6 +39,7 @@ public class ProducerTest {
         try {
             // 发送消息，需要关注发送结果，并捕获失败等异常。
             SendReceipt sendReceipt = producer.send(message);
+            System.out.println(sendReceipt);
         } catch (ClientException e) {
         }
         producer.close();

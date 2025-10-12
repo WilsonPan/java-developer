@@ -1,5 +1,3 @@
-package leetcode;
-
 public class canJump55 {
 
     public boolean canJump(int[] nums) {

@@ -9,3 +9,9 @@ ps -ef | grep -v grep | grep java
 # kill 相关进程
 ps -ef | grep -v grep | grep java | awk '{print $2}' | xargs kill -9
 ```
+
+## 文本相关
+
+```sh
+
+```

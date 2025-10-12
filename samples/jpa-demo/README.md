@@ -5,7 +5,7 @@
 ```sh
 
 ## 1. 安装最新mysql
-docker pull mysql 
+docker pull mysql:8.0.43 
 
 ## 2. 启动mysql
 docker run --restart=always -d \
@@ -14,7 +14,7 @@ docker run --restart=always -d \
 -v $PWD/mysql/logs:/var/log/mysql   \
 -v $PWD/mysql/data:/var/lib/mysql   \
 -e MYSQL_ROOT_PASSWORD=root   \
-mysql
+mysql:8.0.43
 
 ## 3. 进入docker容器
 docker exec -it mysql bash
