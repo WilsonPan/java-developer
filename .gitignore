@@ -37,3 +37,6 @@ build/
 
 *.class
 .mvn/
+
+### mac ###
+.DS_Store
