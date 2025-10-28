@@ -49,3 +49,4 @@
 2. [IDEA常用快捷键](docs/tools/idea.md)
 3. [VSCode常用快捷键](docs/tools/vscode.md)
 4. [Git用法](docs/toos/git.md)
+5. [Cline](docs/tools/cline.md)
