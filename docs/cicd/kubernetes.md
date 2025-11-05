@@ -363,3 +363,9 @@ kubectl rollout undo deployment/<deployment-name>
 kubectl delete -f k8s-deployment.yaml
 kubectl delete -f k8s-services.yaml
 ```
+
+## 引用
+
+[https://github.com/WilsonPan/java-developer](https://github.com/WilsonPan/java-developer)
+
+例子： https://github.com/WilsonPan/java-developer/tree/main/samples/spring-demo
