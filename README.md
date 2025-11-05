@@ -42,6 +42,7 @@
 ## [CICD](/docs/cicd/README.md)
 
 1. [macOS上优雅运行Docker容器](/docs/cicd/README.md)
+2. [kubernetes入门](/docs/cicd/kubernetes.md)
 
 ## [常用工具](/docs/tools/README.md)
 
