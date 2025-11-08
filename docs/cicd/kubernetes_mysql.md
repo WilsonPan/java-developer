@@ -293,7 +293,7 @@ spec:
 ### 7. 部署脚本
 
 ```sh
-kubsuclr apply -f mysql-namespace.yaml
+kubsucl apply -f mysql-namespace.yaml
 kubectl apply -f mysql-storage.yaml
 kubectl apply -f mysql-configmap.yaml
 kubectl apply -f mysql-secret.yaml
@@ -302,6 +302,7 @@ kubectl apply -f mysql-service.yaml
 ```
 
 ### 8. 测试验证
+
 
 ### 1. 查看部署情况
 
