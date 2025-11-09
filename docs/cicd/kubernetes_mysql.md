@@ -304,7 +304,7 @@ kubectl apply -f mysql-service.yaml
 ### 8. 测试验证
 
 
-### 1. 查看部署情况
+#### 1. 查看部署情况
 
 ```sh
 # 查看Pod状态
@@ -322,7 +322,7 @@ kubectl exec -it -n mysql mysql-0 -- mysql -u root -p
 
 ![alt text](/assets/img/k8s_mysql.png)
 
-### 2. 验证插入数据重启后数据不丢失
+#### 2. 验证插入数据重启后数据不丢失
 
 1. 创建表并保存数据
 
