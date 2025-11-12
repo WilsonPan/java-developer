@@ -1,0 +1,43 @@
+image:
+  registry: docker.io
+  repository: mysql
+  tag: 8.0.34
+  pullPolicy: Always
+
+auth:
+  rootPassword: "root123!"
+  database: "myapp"
+  username: "appuser"
+  password: "app1234!"
+  replicationUser: "replicator"       # 复制专用用户
+  replicationPassword: "replica-pass" # 复制用户密码
+
+primary:
+  persistence:
+    enabled: true
+    size: 8Gi
+    storageClass: "local-path"
+  
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "250m"
+    limits:
+      memory: "1Gi"
+      cpu: "500m"
+  
+secondary:
+  replicaCount: 1
+  persistence:
+    enabled: true
+    size: 8Gi
+    storageClass: "local-path"
+  extraEnvVars:
+    - name: MYSQL_ROOT_PASSWORD
+      value: "root123!"
+
+# 禁用所有辅助功能
+volumePermissions:
+  enabled: false
+
+architecture: "replication"
