@@ -44,6 +44,8 @@
 1. [macOS上优雅运行Docker容器](/docs/cicd/README.md)
 2. [kubernetes入门](/docs/cicd/kubernetes.md)
 3. [kubernetes部署MYSQL](/docs/cicd/kubernetes_mysql.md)
+4. [kubernetes使用Helm](/docs/cicd/kubernetes_helm.md)
+5. [kubernetes监控](/docs/cicd/kubernetes_monitoring.md)
 
 ## [常用工具](/docs/tools/README.md)
 

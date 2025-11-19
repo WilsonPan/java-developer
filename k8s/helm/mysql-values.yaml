@@ -1,22 +1,29 @@
+# mysql-values.yaml
+
+global:
+  storageClass: "local-path"
+
 image:
   registry: docker.io
   repository: mysql
   tag: 8.0.34
-  pullPolicy: Always
+
+# 使用 architecture: "standalone" 用于单节点部署
+architecture: "standalone"
+
+volumePermissions:
+  enabled: true
 
 auth:
   rootPassword: "root123!"
   database: "myapp"
-  username: "appuser"
-  password: "app1234!"
-  replicationUser: "replicator"       # 复制专用用户
-  replicationPassword: "replica-pass" # 复制用户密码
+  username: "app"
+  password: "app123!"
 
 primary:
   persistence:
     enabled: true
-    size: 8Gi
-    storageClass: "local-path"
+    existingClaim: "mysql-local-pvc"
   
   resources:
     requests:
@@ -26,18 +33,6 @@ primary:
       memory: "1Gi"
       cpu: "500m"
   
+# 禁用从节点（单节点部署）
 secondary:
-  replicaCount: 1
-  persistence:
-    enabled: true
-    size: 8Gi
-    storageClass: "local-path"
-  extraEnvVars:
-    - name: MYSQL_ROOT_PASSWORD
-      value: "root123!"
-
-# 禁用所有辅助功能
-volumePermissions:
   enabled: false
-
-architecture: "replication"

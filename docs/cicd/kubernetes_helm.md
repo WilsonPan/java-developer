@@ -156,10 +156,26 @@ volumePermissions:
 architecture: "replication"
 ```
 
-### 3. 部署MySQL
+### 3. 安装local-path-provisioner（若已安装，跳过）
+
+```sh
+# 安装
+kubectl apply -f https://raw.githubusercontent.com/rancher/local-path-provisioner/master/deploy/local-path-storage.yaml
+
+# 卸载
+kubectl delete -f https://raw.githubusercontent.com/rancher/local-path-provisioner/master/deploy/local-path-storage.yaml
+```
+
+### 4. 部署MySQL
 
 ```sh
 helm install my-mysql bitnami/mysql -f mysql-values.yaml -n mysql --create-namespace --version=9.14.0
+```
+
+or
+
+```sh
+
 ```
 
 
@@ -184,6 +200,21 @@ mysql -h my-mysql-primary.mysql.svc.cluster.local -uroot -p
 
 ```sh
 helm pull bitnami/mysql --version=9.14.0 --untar
+```
+
+3. 在主节点创建一个表并插入一条数据
+
+```sql
+CREATE TABLE payment_orders (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT UNSIGNED NOT NULL,
+    amount DECIMAL(10, 2) NOT NULL,
+    status ENUM('pending', 'paid', 'cancelled', 'failed') NOT NULL DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+insert into payment_orders(user_id, amount) values(1, 100);
 ```
 
 ## 引用
