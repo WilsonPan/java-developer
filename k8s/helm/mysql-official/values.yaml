@@ -1,0 +1,62 @@
+# values.yaml
+
+# MySQL 镜像配置
+image:
+  repository: mysql
+  tag: "8.0"
+  pullPolicy: IfNotPresent
+
+# MySQL 配置
+mysql:
+  # 认证配置（建议通过 secret 设置）
+  database: "myapp"
+  # root 密码将通过 secret 设置
+  
+  # MySQL 配置参数
+  config: |
+    [mysqld]
+    max_connections=1000
+    innodb_buffer_pool_size=256M
+    character-set-server=utf8mb4
+    collation-server=utf8mb4_unicode_ci
+    default-authentication-plugin=mysql_native_password
+    
+    [mysql]
+    default-character-set=utf8mb4
+    
+    [client]
+    default-character-set=utf8mb4
+
+# 持久化配置
+persistence:
+  enabled: true
+  size: 20Gi
+  storageClass: ""  # 使用默认存储类
+  accessModes:
+    - ReadWriteOnce
+
+# 资源配置
+resources:
+  requests:
+    memory: "512Mi"
+    cpu: "250m"
+  limits:
+    memory: "1Gi"
+    cpu: "500m"
+
+# 服务配置
+service:
+  type: ClusterIP
+  port: 3306
+  targetPort: 3306
+
+# 部署配置
+deployment:
+  replicas: 1
+
+# Secret 配置（生产环境应该预先创建）
+secret:
+  # 这些值应该通过 --set 或 secrets 文件传递
+  rootPassword: "root123!"
+  username: "app"
+  password: "app123!"

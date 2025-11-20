@@ -3,28 +3,21 @@
 global:
   storageClass: "local-path"
 
-image:
-  registry: docker.io
-  repository: mysql
-  tag: 8.0.34
-
 # 使用 architecture: "standalone" 用于单节点部署
 architecture: "standalone"
 
-volumePermissions:
-  enabled: true
-
 auth:
   rootPassword: "root123!"
-  database: "myapp"
+  database: "app"
   username: "app"
   password: "app123!"
 
 primary:
   persistence:
     enabled: true
-    existingClaim: "mysql-local-pvc"
-  
+    storageClass: "local-path"
+    size: "10Gi"
+      
   resources:
     requests:
       memory: "512Mi"
@@ -32,7 +25,7 @@ primary:
     limits:
       memory: "1Gi"
       cpu: "500m"
-  
+    
 # 禁用从节点（单节点部署）
 secondary:
   enabled: false

@@ -1,0 +1,13 @@
+{{- if .Values.mysql.config }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Chart.Name }}-config
+  labels:
+    app: {{ .Chart.Name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    release: {{ .Release.Name }}
+data:
+  my.cnf: |
+{{ .Values.mysql.config | indent 4 }}
+{{- end }}
