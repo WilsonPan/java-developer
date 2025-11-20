@@ -3,12 +3,35 @@ apiVersion: v1
 kind: Service
 metadata:
   name: sprint-service
-spec:
-  type: NodePort
-  selector:
+  namespace: default
+  labels:
     app: spring-app
+    monitor-group: spring-apps
+spec:
+  selector:
+    app: spring-app  # 只使用这一个选择器，确保与 Pod 标签匹配
   ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 8080
-      nodePort: 30080
+  - name: metrics
+    port: 8080
+    targetPort: 8080
+  type: NodePort
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: spring-app-monitor
+  namespace: monitoring  # 必须与 Prometheus 同 namespace
+  labels:
+    release: prometheus  # 必须匹配 Prometheus 配置
+    app: spring-app-monitor
+spec:
+  selector:
+    matchLabels:
+      monitor-group: spring-apps  # 匹配 Service 的标签
+  endpoints:
+  - port: metrics  # 必须匹配 Service 中端口的 name
+    path: /actuator/prometheus
+    interval: 30s
+    scrapeTimeout: 10s
+  namespaceSelector:
+    any: true  # 从所有 namespace 发现服务

@@ -5,7 +5,7 @@ metadata:
   labels:
     app: spring-app
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: spring-app
@@ -13,24 +13,36 @@ spec:
     metadata:
       labels:
         app: spring-app
+        monitor-group: spring-apps
+      annotations:
+        prometheus.io/scrape: "true"                  ## 增加监控
+        prometheus.io/path: "/actuator/prometheus"    ## 增加监控
+        prometheus.io/port: "8080"                    ## 增加监控
+        prometheus.io/scheme: "http"                  ## 增加监控
     spec:
       containers:
       - name: spring-app
         image: spring-k8s-demo:latest
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 8080
+        - name: metrics
+          containerPort: 8080
+        env:
+        - name: MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE
+          value: "health,metrics,prometheus,info"
+        - name: MANAGEMENT_ENDPOINT_PROMETHEUS_ENABLED
+          value: "true"
         livenessProbe:
           httpGet:
             path: /health
             port: 8080
-          initialDelaySeconds: 300
+          initialDelaySeconds: 12
           periodSeconds: 10
         readinessProbe:
           httpGet:
             path: /health
             port: 8080
-          initialDelaySeconds: 300
+          initialDelaySeconds: 12
           periodSeconds: 10
         resources:
           requests:
