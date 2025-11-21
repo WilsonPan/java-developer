@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sprint-service-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: spring.wilson.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: sprint-service
+            port:
+              number: 8080
