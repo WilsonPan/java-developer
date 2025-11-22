@@ -1,0 +1,1 @@
+helm install mysql . -n mysql

@@ -30,10 +30,7 @@ mysql:
 # 持久化配置
 persistence:
   enabled: true
-  size: 20Gi
-  storageClass: ""  # 使用默认存储类
-  accessModes:
-    - ReadWriteOnce
+  existingClaim: "mysql-local-pvc"  # 如果使用已有的 PVC，填写名称
 
 # 资源配置
 resources:
