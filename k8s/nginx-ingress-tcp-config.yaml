@@ -1,0 +1,8 @@
+# nginx-ingress-tcp-config.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tcp-services
+  namespace: ingress-nginx
+data:
+  "3306": "mysql/mysql-official-service:3306"

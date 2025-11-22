@@ -1,0 +1,11 @@
+# nginx-ingress-values.yaml
+controller:
+  service:
+    type: LoadBalancer
+  config:
+    use-forwarded-headers: "true"
+  extraArgs:
+    enable-ssl-passthrough: "false"
+
+tcp:
+  "3306": "mysql/mysql-official-service:3306"
