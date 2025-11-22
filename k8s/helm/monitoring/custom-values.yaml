@@ -1,0 +1,17 @@
+# Grafana配置
+grafana:
+  # 设置Grafana的默认管理员密码
+  adminPassword: "admin123!"
+
+prometheusOperator:
+  # 检查并确保无头服务没有设置 sessionAffinity
+  service:
+    sessionAffinity: ""  # 确保为空
+
+alertmanager:
+  service:
+    sessionAffinity: ""  # 确保为空
+
+prometheus:
+  service:
+    sessionAffinity: ""  # 确保为空

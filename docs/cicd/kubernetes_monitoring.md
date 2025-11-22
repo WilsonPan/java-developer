@@ -32,7 +32,7 @@
 2. 已安装 `kubectl` 并配置好对集群的访问
 > 参考: [macOS上优雅运行Docker容器](https://www.cnblogs.com/WilsonPan/p/19124111)
 
-1. 已安装 `Helm。` 
+3. 已安装 `Helm。` 
 > 参考: [k8s使用helm简化安装](https://www.cnblogs.com/WilsonPan/p/19208551)
 
 ## 部署步骤 
