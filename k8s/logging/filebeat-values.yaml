@@ -1,0 +1,65 @@
+# filebeat-values-clean.yaml
+clusterRoleRules:
+  - apiGroups: [coordination.k8s.io]
+    resources: [leases]
+    verbs: ['get', 'create', 'update']
+  - apiGroups: [""]
+    resources: ["nodes", "nodes/stats", "events", "endpoints", "pods", "services"]
+    verbs: ["get", "list", "watch"]
+
+# 如果不需要采集容器日志，可以注释掉以下部分
+daemonset:
+  enabled: true
+  # 确保卷定义不重复
+  volumes:
+    - name: varlog
+      hostPath:
+        path: /var/log
+    - name: varlibdockercontainers
+      hostPath:
+        path: /var/lib/docker/containers
+    - name: varlogpods
+      hostPath:
+        path: /var/log/pods
+    - name: varlibcontainers
+      hostPath:
+        path: /var/lib/containers
+
+  volumeMounts:
+    - name: varlog
+      mountPath: /var/log
+      readOnly: true
+    - name: varlibdockercontainers
+      mountPath: /var/lib/docker/containers
+      readOnly: true
+    - name: varlogpods
+      mountPath: /var/log/pods
+      readOnly: true
+    - name: varlibcontainers
+      mountPath: /var/lib/containers
+      readOnly: true
+
+  # 环境变量配置 - 确保不重复
+  env:
+    - name: NODE_NAME
+      valueFrom:
+        fieldRef:
+          fieldPath: spec.nodeName
+
+filebeatConfig:
+  filebeat.yml: |
+    filebeat.inputs:
+    - type: container
+      paths:
+        - /var/log/containers/*.log
+      processors:
+        - add_kubernetes_metadata:
+            host: ${NODE_NAME}
+            matchers:
+            - logs_path:
+                logs_path: "/var/log/containers/"
+
+    output.elasticsearch:
+      hosts: ['elasticsearch-master:9200']
+      username: "elastic"
+      password: "elastic123!"

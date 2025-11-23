@@ -1,0 +1,29 @@
+# kibana-values.yaml
+elasticsearchHosts: "http://elasticsearch-master.logging.svc.cluster.local:9200"
+
+# 资源配置
+resources:
+  requests:
+    cpu: "500m"
+    memory: "1Gi"
+  limits:
+    cpu: "1000m"
+    memory: "2Gi"
+
+# Elasticsearch连接配置
+elasticsearch:
+  username: "elastic"
+  password: "elastic123!"  # 与Elasticsearch相同的密码
+
+# 配置参数
+kibanaConfig:
+  kibana.yml: |
+    server:
+      name: kibana
+      host: "0.0.0.0"
+    monitoring:
+      ui:
+        enabled: true
+    xpack:
+      security:
+        enabled: false

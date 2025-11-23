@@ -1,84 +1,37 @@
-# elasticsearch-values.yaml
-
-# 关闭集群模式，使用单节点
 clusterName: "elasticsearch"
 nodeGroup: "master"
-
-# 单节点配置
 replicas: 1
 
-# 镜像配置
-image: "docker.elastic.co/elasticsearch/elasticsearch"
-imageTag: "7.17.3"
-imagePullPolicy: "IfNotPresent"
+extraEnvs:
+  - name: ELASTIC_PASSWORD
+    value: "elastic123!"
 
-# 资源配置
+esConfig:
+  elasticsearch.yml: |
+    cluster.name: "elasticsearch"
+    node.name: "elasticsearch-master-0"
+    network.host: 0.0.0.0
+    # 使用标准集群发现而不是 single-node
+    cluster.initial_master_nodes: ["elasticsearch-master-0"]
+    discovery.seed_hosts: ["elasticsearch-master-headless"]
+    # 确保节点角色正确
+    node.master: true
+    node.data: true
+    node.ingest: true
+    # 禁用安全
+    xpack.security.enabled: false
+    cluster.deprecation_indexing.enabled: false
+
+esJavaOpts: "-Xms512m -Xmx512m"
+
 resources:
   requests:
     cpu: "500m"
     memory: "1Gi"
   limits:
     cpu: "1000m"
-    memory: "2Gi"
+    memory: "1Gi"
 
-# 单节点发现配置
-esConfig:
-  elasticsearch.yml: |
-    cluster.name: elasticsearch
-    node.name: ${HOSTNAME}
-    discovery.type: single-node
-    xpack.security.enabled: false
-    xpack.security.http.ssl.enabled: false
-    xpack.monitoring.collection.enabled: false
-    action.destructive_requires_name: false
-
-# JVM 配置
-extraEnvs:
-  - name: "ES_JAVA_OPTS"
-    value: "-Xms512m -Xmx512m"
-
-# 关闭反亲和性（单节点必需）
-antiAffinity: "soft"
-
-# 持久化存储配置
 persistence:
   enabled: true
-  size: "10Gi"
-  storageClassName: "local-path"
-  accessModes:
-    - ReadWriteOnce
-
-# 服务配置
-service:
-  type: ClusterIP
-  ports:
-    - port: 9200
-      name: http
-      targetPort: 9200
-    - port: 9300
-      name: transport
-      targetPort: 9300
-
-# 关闭 X-Pack 安全功能（开发环境）
-secret:
-  enabled: false
-
-# 初始化容器权限设置
-podSecurityContext:
-  fsGroup: 1000
-  runAsUser: 1000
-
-# 关闭所有 X-Pack 功能以节省资源
-xpack:
-  security:
-    enabled: false
-  monitoring:
-    enabled: false
-  watcher:
-    enabled: false
-  graph:
-    enabled: false
-  ml:
-    enabled: false
-  logstash:
-    enabled: false
+  size: "8Gi"
