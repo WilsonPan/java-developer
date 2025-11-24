@@ -280,7 +280,6 @@ kubectl apply -f kibana-ingress.yaml
 创建 `filebeat-values.yaml`
 
 ```yaml
-# filebeat-values-clean.yaml
 clusterRoleRules:
   - apiGroups: [coordination.k8s.io]
     resources: [leases]
@@ -289,10 +288,8 @@ clusterRoleRules:
     resources: ["nodes", "nodes/stats", "events", "endpoints", "pods", "services"]
     verbs: ["get", "list", "watch"]
 
-# 如果不需要采集容器日志，可以注释掉以下部分
 daemonset:
   enabled: true
-  # 确保卷定义不重复
   volumes:
     - name: varlog
       hostPath:
@@ -321,7 +318,6 @@ daemonset:
       mountPath: /var/lib/containers
       readOnly: true
 
-  # 环境变量配置 - 确保不重复
   env:
     - name: NODE_NAME
       valueFrom:
@@ -333,18 +329,49 @@ filebeatConfig:
     filebeat.inputs:
     - type: container
       paths:
-        - /var/log/containers/*.log
-      processors:
-        - add_kubernetes_metadata:
-            host: ${NODE_NAME}
-            matchers:
-            - logs_path:
-                logs_path: "/var/log/containers/"
+        - /var/log/containers/spring-app-*.log
+      fields:
+        app_id: 'spring-app'
+        environment: 'prod'
+        log_type: 'application'
+      fields_under_root: true
+      json.keys_under_root: true
+      json.overwrite_keys: true
+      json.add_error_key: true
+      json.message_key: log
+      json.time_key: time
+      json.time_format: iso8601
+
+    processors:
+      - add_kubernetes_metadata:
+          host: ${NODE_NAME}
+          matchers:
+          - logs_path:
+              logs_path: "/var/log/containers/"
+      - decode_json_fields:
+          fields: ["message"]
+          target: ""
+          overwrite_keys: true
+          when:
+            has_fields: ['message']
+      - decode_json_fields:
+          fields: ["log"]
+          target: ""
+          overwrite_keys: true
+          when:
+            has_fields: ['log']
+
+    # 禁用模板设置，使用现有的
+    setup.template.enabled: false
+    setup.ilm.enabled: false
 
     output.elasticsearch:
       hosts: ['elasticsearch-master:9200']
       username: "elastic"
       password: "elastic123!"
+      index: "filebeat-spring-app-%{+yyyy.MM.dd}"
+
+    logging.level: info
 ```
 
 #### 5.2 部署Filebeat
@@ -416,53 +443,23 @@ Java应用 → 日志文件 → Filebeat → Logstash → Elasticsearch → Kiba
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <!-- 控制台输出 -->
+    <!-- 控制台输出 JSON 格式 -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
-        </encoder>
-    </appender>
-
-    <!-- 文件输出 -->
-    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>logs/app.log</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>logs/app.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
-            <maxHistory>30</maxHistory>
-            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>100MB</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
-        </rollingPolicy>
-        <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
-        </encoder>
-    </appender>
-
-    <!-- Logstash JSON 输出 -->
-    <appender name="LOGSTASH" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>logs/logstash.json</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>logs/logstash.%d{yyyy-MM-dd}.%i.json</fileNamePattern>
-            <maxHistory>7</maxHistory>
-            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>100MB</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
-        </rollingPolicy>
         <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
             <providers>
-                <timestamp/>
-                <version/>
+                <timestamp>
+                    <timeZone>UTC</timeZone>
+                </timestamp>
                 <logLevel/>
                 <loggerName/>
                 <message/>
                 <mdc/>
                 <stackTrace/>
-                <threadName/>
                 <pattern>
                     <pattern>
                         {
-                            "app": "spring-k8s-demo",
-                            "env": "${ENV:-dev}"
+                        "app_name": "spring-app",
+                        "environment": "prod"
                         }
                     </pattern>
                 </pattern>
@@ -471,9 +468,7 @@ Java应用 → 日志文件 → Filebeat → Logstash → Elasticsearch → Kiba
     </appender>
 
     <root level="INFO">
-        <appender-ref ref="CONSOLE" />
-        <appender-ref ref="FILE" />
-        <appender-ref ref="LOGSTASH" />
+        <appender-ref ref="CONSOLE"/>
     </root>
 </configuration>
 ```
