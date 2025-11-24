@@ -1,4 +1,4 @@
-package com.example.spring_k8s_demo;
+package com.example.spring.k8s.demo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
